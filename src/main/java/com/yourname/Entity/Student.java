@@ -5,6 +5,7 @@ import com.sun.javafx.beans.IDProperty;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Student")
 public class Student {
 
     @Id
