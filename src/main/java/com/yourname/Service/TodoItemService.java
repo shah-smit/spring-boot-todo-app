@@ -44,4 +44,15 @@ public class TodoItemService {
             throw new TodoItemNotFoundException();
         }
     }
+
+    public boolean isItemNameValid(String name){
+        return !name.isEmpty();
+    }
+
+    public TodoItem getTodoItemById(int id){
+        if(todoItemRepository.findById(id).isPresent())
+            return todoItemRepository.findById(id).get();
+        else
+            return null;
+    }
 }
