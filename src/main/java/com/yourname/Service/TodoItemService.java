@@ -6,6 +6,8 @@ import com.yourname.Repository.TodoItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -15,6 +17,13 @@ public class TodoItemService {
     public TodoItemRepository todoItemRepository;
 
     public List<TodoItem> getAllItems(){
+        List<TodoItem> items = todoItemRepository.findAll();
+        Collections.sort(items, new Comparator<TodoItem>() {
+            @Override
+            public int compare(TodoItem lhs, TodoItem rhs) {
+                return lhs.getCreateDateTime().compareTo(rhs.getCreateDateTime());
+            }
+        });
         return todoItemRepository.findAll();
     }
 
