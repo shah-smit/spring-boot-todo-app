@@ -20,6 +20,7 @@ import java.util.Arrays;
  * username: user
  * password: password (remember it is not a {noop}password. {noop} is just added for "fake" or static data
  */
+//Todo: https://www.javainterviewpoint.com/spring-boot-security-database-authentication-example/
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
