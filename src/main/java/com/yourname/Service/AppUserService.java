@@ -2,11 +2,12 @@ package com.yourname.Service;
 
 import com.yourname.Entity.AppUser;
 import com.yourname.Repository.AppUserRepository;
+import com.yourname.Service.Interface.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AppUserService {
+public class AppUserService implements IAppUserService {
 
     @Autowired
     private AppUserRepository appUserRepository;

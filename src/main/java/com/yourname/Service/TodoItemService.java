@@ -3,6 +3,7 @@ package com.yourname.Service;
 import com.yourname.Entity.TodoItem;
 import com.yourname.Exception.TodoItemNotFoundException;
 import com.yourname.Repository.TodoItemRepository;
+import com.yourname.Service.Interface.ITodoItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class TodoItemService {
+public class TodoItemService implements ITodoItemService {
 
     @Autowired
     public TodoItemRepository todoItemRepository;
