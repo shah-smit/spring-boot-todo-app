@@ -6,6 +6,8 @@ import com.yourname.Exception.AppUserNotFoundException;
 import com.yourname.Repository.AppUserRepository;
 import com.yourname.Service.Interface.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +26,8 @@ public class AppUserService implements IAppUserService {
     }
 
     public AppUser createUser(AppUser user) throws AppUserNotCreatedException {
+        PasswordEncoder pe =  new BCryptPasswordEncoder();
+        user.setPassword(pe.encode(user.getPassword()));
         this.appUserRepository.save(user);
         try {
             return findById(user.getUsername());
@@ -48,6 +52,7 @@ public class AppUserService implements IAppUserService {
             returnedUser.setLastName(user.getLastName());
             returnedUser.setPassword(user.getPassword());
             returnedUser.setRole(user.getRole());
+            this.appUserRepository.save(returnedUser);
             return returnedUser;
         } else {
             throw new AppUserNotFoundException();
