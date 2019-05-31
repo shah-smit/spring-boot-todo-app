@@ -1,6 +1,8 @@
 package com.yourname.Service;
 
 import com.yourname.Entity.AppUser;
+import com.yourname.Exception.AppUserNotCreatedException;
+import com.yourname.Exception.AppUserNotFoundException;
 import com.yourname.Repository.AppUserRepository;
 import com.yourname.Service.Interface.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,36 +14,43 @@ public class AppUserService implements IAppUserService {
     @Autowired
     private AppUserRepository appUserRepository;
 
-    public AppUser findById(String id)
-    {
-        if(this.appUserRepository.findById(id).isPresent()){
+    public AppUser findById(String id) throws AppUserNotFoundException {
+        if (this.appUserRepository.findById(id).isPresent()) {
             AppUser user = this.appUserRepository.findById(id).get();
             return user;
-        }
-        else{
-            return null;
+        } else {
+            throw new AppUserNotFoundException();
         }
     }
 
-    public AppUser createUser(AppUser user){
+    public AppUser createUser(AppUser user) throws AppUserNotCreatedException {
         this.appUserRepository.save(user);
-        return user;
+        try {
+            return findById(user.getUsername());
+        } catch (AppUserNotFoundException e) {
+            throw new AppUserNotCreatedException();
+        }
     }
 
-    public void deleteUser(String id){
-        if(this.appUserRepository.findById(id).isPresent()){
+    public void deleteUser(String id) throws AppUserNotFoundException {
+        if (this.appUserRepository.findById(id).isPresent()) {
             AppUser user = this.appUserRepository.findById(id).get();
             this.appUserRepository.delete(user);
+        } else {
+            throw new AppUserNotFoundException();
         }
     }
 
-    public AppUser updateUser(AppUser user){
-        if(this.appUserRepository.findById(user.getUsername()).isPresent()){
+    public AppUser updateUser(AppUser user) throws AppUserNotFoundException {
+        if (this.appUserRepository.findById(user.getUsername()).isPresent()) {
             AppUser returnedUser = this.appUserRepository.findById(user.getUsername()).get();
             returnedUser.setFirstName(user.getFirstName());
             returnedUser.setLastName(user.getLastName());
             returnedUser.setPassword(user.getPassword());
+            returnedUser.setRole(user.getRole());
+            return returnedUser;
+        } else {
+            throw new AppUserNotFoundException();
         }
-        return user;
     }
 }
