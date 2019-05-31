@@ -16,9 +16,12 @@ public class AppUserService implements IAppUserService {
     @Autowired
     private AppUserRepository appUserRepository;
 
+    PasswordEncoder pe =  new BCryptPasswordEncoder();
+
     public AppUser findById(String id) throws AppUserNotFoundException {
         if (this.appUserRepository.findById(id).isPresent()) {
             AppUser user = this.appUserRepository.findById(id).get();
+            user.setPassword(null);
             return user;
         } else {
             throw new AppUserNotFoundException();
@@ -26,7 +29,7 @@ public class AppUserService implements IAppUserService {
     }
 
     public AppUser createUser(AppUser user) throws AppUserNotCreatedException {
-        PasswordEncoder pe =  new BCryptPasswordEncoder();
+
         user.setPassword(pe.encode(user.getPassword()));
         this.appUserRepository.save(user);
         try {
@@ -50,7 +53,7 @@ public class AppUserService implements IAppUserService {
             AppUser returnedUser = this.appUserRepository.findById(user.getUsername()).get();
             returnedUser.setFirstName(user.getFirstName());
             returnedUser.setLastName(user.getLastName());
-            returnedUser.setPassword(user.getPassword());
+            returnedUser.setPassword(pe.encode(user.getPassword()));
             returnedUser.setRole(user.getRole());
             this.appUserRepository.save(returnedUser);
             return returnedUser;
