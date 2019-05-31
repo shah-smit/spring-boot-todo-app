@@ -27,13 +27,15 @@ public class AppUser {
         this.firstName = firstName;
         this.lastName = lastName;
         this.createDateTime = createDateTime;
+        this.role = "USER";
     }
 
-    public AppUser(String username, String password, String firstName, String lastName) {
+    public AppUser(String username, String password, String firstName, String lastName, String role) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.role = role;
     }
 
     public AppUser() {
@@ -77,5 +79,13 @@ public class AppUser {
 
     public void setCreateDateTime(LocalDateTime createDateTime) {
         this.createDateTime = createDateTime;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

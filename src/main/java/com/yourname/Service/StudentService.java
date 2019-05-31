@@ -2,13 +2,14 @@ package com.yourname.Service;
 
 import com.yourname.Dao.StudentDao;
 import com.yourname.Entity.Student;
+import com.yourname.Service.Interface.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
 @Service
-public class StudentService {
+public class StudentService implements IStudentService {
 
     @Autowired
     private StudentDao studentDao;

@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = Main.class)
 @WebMvcTest(controllers = { TodoItemController.class }, secure = false)
-public class TodoItemControllerIntegrationTest {
+public class TodoItemControllerUnitTest {
 
     @Autowired
     private MockMvc mockMvc;
