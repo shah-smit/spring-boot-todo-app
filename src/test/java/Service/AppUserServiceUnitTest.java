@@ -71,6 +71,14 @@ public class AppUserServiceUnitTest {
     }
 
     @Test
+    public void updateAppUserWithNullPassword_shouldNotChangeOldPassword() throws AppUserNotFoundException {
+        AppUser app = new AppUser("admin",null,"Smit","Shah","USER");
+        AppUser user = appUserService.updateUser(app);
+
+        assertThat(user.getPassword()).isNotNull();
+    }
+
+    @Test
     public void updateAppUser_shouldReturnWithNewRole() throws AppUserNotFoundException {
         AppUser app = new AppUser("admin","admin","Smit","Shah","ADMIN");
         AppUser user = appUserService.updateUser(app);

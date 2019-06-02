@@ -21,7 +21,6 @@ public class AppUserService implements IAppUserService {
     public AppUser findById(String id) throws AppUserNotFoundException {
         if (this.appUserRepository.findById(id).isPresent()) {
             AppUser user = this.appUserRepository.findById(id).get();
-            user.setPassword(null);
             return user;
         } else {
             throw new AppUserNotFoundException();
@@ -51,10 +50,10 @@ public class AppUserService implements IAppUserService {
     public AppUser updateUser(AppUser user) throws AppUserNotFoundException {
         if (this.appUserRepository.findById(user.getUsername()).isPresent()) {
             AppUser returnedUser = this.appUserRepository.findById(user.getUsername()).get();
-            returnedUser.setFirstName(user.getFirstName());
-            returnedUser.setLastName(user.getLastName());
-            returnedUser.setPassword(pe.encode(user.getPassword()));
-            returnedUser.setRole(user.getRole());
+            if(user.getFirstName() != null) returnedUser.setFirstName(user.getFirstName());
+            if(user.getLastName() != null)returnedUser.setLastName(user.getLastName());
+            if(user.getPassword() != null) returnedUser.setPassword(pe.encode(user.getPassword()));
+            if(user.getRole() != null) returnedUser.setRole(user.getRole());
             this.appUserRepository.save(returnedUser);
             return returnedUser;
         } else {
