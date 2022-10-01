@@ -13,6 +13,9 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
@@ -34,8 +37,10 @@ public class TodoItemServiceUnitTest {
     private TodoItemRepository todoItemRepository;
 
     @Before
-    public void setUp(){
-        TodoItem t = new TodoItem(1, "Test Item 1");
+    public void setUp() {
+        LocalDateTime localDateTime = null;
+
+        TodoItem t = new TodoItem(1, "Test Item 1", null);
 
         Mockito.when(todoItemRepository.findById(t.getId())).thenReturn(java.util.Optional.ofNullable(t));
 
@@ -43,19 +48,19 @@ public class TodoItemServiceUnitTest {
     }
 
     @Test
-    public void nonEmptyItemName_ReturnsTrue(){
+    public void nonEmptyItemName_ReturnsTrue() {
         final boolean returnedValue = todoItemService.isItemNameValid("NonEmpty");
         assertThat(returnedValue).isEqualTo(true);
     }
 
     @Test
-    public void emptyItemName_ReturnsFalse(){
+    public void emptyItemName_ReturnsFalse() {
         final boolean returnedValue = todoItemService.isItemNameValid("");
         assertThat(returnedValue).isEqualTo(false);
     }
 
     @Test
-    public void whenValidId_thenTodoItemShouldBeFound(){
+    public void whenValidId_thenTodoItemShouldBeFound() {
         int id = 1;
         TodoItem found = todoItemService.getTodoItemById(id);
 
@@ -63,7 +68,7 @@ public class TodoItemServiceUnitTest {
     }
 
     @Test
-    public void whenIdNotValid_thenTodoItemShouldReturnNull(){
+    public void whenIdNotValid_thenTodoItemShouldReturnNull() {
         int id = 2;
         TodoItem found = todoItemService.getTodoItemById(id);
 
@@ -72,7 +77,8 @@ public class TodoItemServiceUnitTest {
 
     @Test
     public void whenIdValid_thenUpdateTodoItem() throws TodoItemNotFoundException {
-        TodoItem temp = new TodoItem(1, "Test Item 1 Updated");
+        LocalDateTime localDateTime = null;
+        TodoItem temp = new TodoItem(1, "Test Item 1 Updated", localDateTime);
         TodoItem updatedResult = todoItemService.updateItem(temp);
 
         assertThat(updatedResult.getText()).isEqualTo(temp.getText());
@@ -80,7 +86,8 @@ public class TodoItemServiceUnitTest {
 
     @Test
     public void whenIdValid_thenUpdatedTodoItemHasSameID() throws TodoItemNotFoundException {
-        TodoItem temp = new TodoItem(1, "Test Item 1 Updated");
+        LocalDateTime localDateTime = null;
+        TodoItem temp = new TodoItem(1, "Test Item 1 Updated", localDateTime);
         TodoItem updatedResult = todoItemService.updateItem(temp);
 
         assertThat(updatedResult.getId()).isEqualTo(temp.getId());
@@ -101,7 +108,6 @@ public class TodoItemServiceUnitTest {
             assertThat(e).hasNoCause();
         }
     }
-
 
 
 }

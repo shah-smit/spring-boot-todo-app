@@ -20,28 +20,28 @@ public class StudentController {
     @Autowired
     private StudentRepository studentRepository;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Student> getAllStudents(){
-        return this.studentRepository.findAll();
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
-    public Student getStudentById(@PathVariable("id") int id){
+    @GetMapping(value = "/{id}")
+    public Student getStudentById(@PathVariable("id") int id) {
         return this.studentService.getStudentById(id);
     }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
-    public void deleteStudentById(@PathVariable("id") int id){
+    @DeleteMapping(value = "/{id}")
+    public void deleteStudentById(@PathVariable("id") int id) {
         this.studentService.deleteStudentById(id);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateStudent(@RequestBody Student s){
+    @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void updateStudent(@RequestBody Student s) {
         this.studentService.updateStudent(s);
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Student> addStudent(@RequestBody Student s){
+    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Student> addStudent(@RequestBody Student s) {
         this.studentRepository.save(s);
         return this.studentRepository.findAll();
     }
