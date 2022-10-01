@@ -16,23 +16,23 @@ public class AppUserController {
     @Autowired
     private AppUserService appUserService;
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping(value = "")
     public AppUser updateAppUser(@RequestBody AppUser u) throws AppUserNotFoundException {
         return this.appUserService.updateUser(u);
     }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public void deleteAppUser(@PathVariable("id") String id) throws AppUserNotFoundException {
         this.appUserService.deleteUser(id);
     }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public AppUser getAppUser(@PathVariable("id") String id) throws AppUserNotFoundException {
         return this.appUserService.findById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping(value = "")
     public void addAppUser(@RequestBody AppUser u) throws AppUserNotCreatedException {
-         this.appUserService.createUser(u);
+        this.appUserService.createUser(u);
     }
 }

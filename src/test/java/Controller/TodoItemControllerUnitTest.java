@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,8 @@ public class TodoItemControllerUnitTest {
 
     @Before
     public void setUp(){
-        TodoItem t = new TodoItem(1, "First Todo Item");
+        LocalDateTime localDateTime=LocalDateTime.MIN;
+        TodoItem t = new TodoItem(1, "First Todo Item", localDateTime);
         List<TodoItem> todoItemList = new ArrayList<>();
         todoItemList.add(t);
 

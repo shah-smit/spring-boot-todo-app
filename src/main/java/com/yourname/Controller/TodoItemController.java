@@ -15,7 +15,7 @@ public class TodoItemController {
     @Autowired
     public TodoItemService todoItemService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping(value = "")
     public List<TodoItem> getAllItems(){
         return this.todoItemService.getAllItems();
     }
