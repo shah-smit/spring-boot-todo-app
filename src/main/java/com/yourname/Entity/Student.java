@@ -1,7 +1,5 @@
 package com.yourname.Entity;
 
-import com.sun.javafx.beans.IDProperty;
-
 import javax.persistence.*;
 
 @Entity
